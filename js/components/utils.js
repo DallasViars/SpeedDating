@@ -103,8 +103,8 @@ export function getMatchInfoHTML(object) {
       <li>${name} (${pronouns || "Not given"})
         <ul>
           <li>Email: ${email || "Not given"} </li>
-          <li>Discord: ${discord || "Not given"} </li>
-          <li>Facebook: ${facebook || "Not given"} </li>
+          ${discord ? "<li>Discord: " + discord + "</li>" : ""}
+          ${facebook ? "<li>Facebook: " + facebook + "</li>" : ""}
         </ul>
       </li><br>
     `
