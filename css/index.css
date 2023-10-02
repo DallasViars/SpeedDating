@@ -240,3 +240,7 @@ input[type="email"] {
   padding-left: 1em;
   padding-right: 1em;
 }
+.header > p,
+.header > div > p {
+  font-size: 1.5rem;
+}
