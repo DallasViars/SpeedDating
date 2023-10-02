@@ -21,8 +21,7 @@ function getLetterHeaderHTML(id) {
   `
 }
 function getLetterMainHTML(id) {
-  const mainParticipant = utils.getParticipant(id)[0]
-  const { friends, romance } = utils.processMatches(id);
+  const mainParticipant = utils.getParticipant(id)[0];
   if (!mainParticipant.hasBeenSaved) {
     return `
       <div class="main__letter">
@@ -30,6 +29,7 @@ function getLetterMainHTML(id) {
       </div>
     `
   }
+  const { friends, romance } = utils.processMatches(id);
   let html = `
     <div class="main__letter">
       <p>Dear ${mainParticipant.name},</p>
@@ -67,33 +67,32 @@ function getLetterFooterHTML(id) {
 //This copies the email to send and creates a mailto link that opens in the user's email client, but still needs formatting
 function insertEmailLink(id) {
   id = Number(id);
+  const letterError = document.querySelector(".letter__error") ?? "";
   const letterEl = document.querySelector(".main__letter")
   const participant = participantsList.filter(item => id === Number(item.id))[0]
-
   const emailEl = document.createElement("a");
-  
-  //Matches html opening and closing tags
-  // const regex = /<\w+>?|<\/\w+>?/gi
-  const letterText = letterEl.innerHTML;
-    //Replaces html tags and 2-consecutive carriage returns with nothing
-    // .replace(regex, "").replace(/\n\n/gi, "")
-
-  navigator.clipboard.writeText(letterText);
-  emailEl.classList = "btn btn--wide send-email";
-  emailEl.setAttribute("href", `mailto:${participant.email}?Subject=Your Speed Dating Results`);
-  emailEl.textContent = "Send this as an email";
-
   const mailMeteorLink = document.createElement("a");
-  mailMeteorLink.setAttribute("href", `https://mailmeteor.com/html-to-text#sourceInput`);
-  mailMeteorLink.setAttribute("target", "_blank");
-  mailMeteorLink.textContent = "Go to MailMeteor to convert HTML to text (maintains letter formatting)";
+  if (!letterError) {
+    emailEl.classList = "send-email";
+    emailEl.setAttribute("href", `mailto:${participant.email}?Subject=Your Speed Dating Results`);
+    emailEl.textContent = "Send this as an email";
+
+    mailMeteorLink.setAttribute("href", `https://mailmeteor.com/html-to-text#sourceInput`);
+    mailMeteorLink.setAttribute("target", "_blank");
+    mailMeteorLink.classList = "l-r-padding1";
+    mailMeteorLink.textContent = "Go to MailMeteor to convert HTML to text (maintains letter formatting)";
+  }
 
   const backButton = document.createElement("button");
-  backButton.setAttribute("id", "btn-enter-matces");
-  backButton.classList = "btn btn--wide";
+  backButton.setAttribute("id", "btn-enter-matches");
+  backButton.classList = "btn btn--wide send-email";
   backButton.textContent = "Back to Enter Matches";
 
   letterEl.append(mailMeteorLink);
   letterEl.append(emailEl);
   letterEl.append(backButton);
+
+  //Add this to mailMeteorLink after Snackbar is created
+  // const letterText = letterEl.innerHTML;
+  // navigator.clipboard.writeText(letterText);
 }

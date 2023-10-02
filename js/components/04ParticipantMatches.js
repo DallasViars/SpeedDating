@@ -8,6 +8,7 @@ export function renderEnterMatchesHTML(id) {
   main.firstChild.scrollIntoView(true);
 }
 function getEMHeaderHTML(id) {
+  id = Number(id);
   const participantInfo = utils.getParticipant(id);
   let { name, hasBeenSaved } = participantInfo[0];
   return `

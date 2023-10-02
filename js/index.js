@@ -19,7 +19,7 @@ const participantsList = [
     "email": "cyrilla@email.com",
     "location": "Midlothian, VA",
     "discord": "cyrillanikki",
-    "facebook": "Dallas Viars",
+    "facebook": "cyrillanikki",
     "pronouns": [
       [
         false,
