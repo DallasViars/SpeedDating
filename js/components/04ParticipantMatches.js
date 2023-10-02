@@ -1,13 +1,13 @@
 import { header, main, footer, participantsList } from "../index.js";
 import * as utils from "./utils.js";
 
-export function renderEnterMatchesHTML(id) {
+export function renderEnterMatchesHTML(id=1) {
   header.innerHTML = getEMHeaderHTML(id);
   main.innerHTML = getEMMainHTML(id);
   footer.innerHTML = getEMFooterHTML(id);
   main.firstChild.scrollIntoView(true);
 }
-function getEMHeaderHTML(id) {
+function getEMHeaderHTML(id=1) {
   id = Number(id);
   const participantInfo = utils.getParticipant(id);
   let { name, hasBeenSaved } = participantInfo[0];
@@ -17,7 +17,7 @@ function getEMHeaderHTML(id) {
     <button id="btn-next" data-id=${id === participantsList.length ? 1 : id + 1} class="btn">Next</button>
   `
 }
-function getEMMainHTML(mainId) {
+function getEMMainHTML(mainId=1) {
   const mainParticipant = utils.getParticipant(mainId);
   let html = `<div class="main__container flex col gap1">`
   html += participantsList.map(participant => {
